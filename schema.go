@@ -1,16 +1,19 @@
-package graphql
+package main
 
 
 var Schema = `
 	type User {
 		id: ID!
-		firstName: string!
-		lastName: string!
+		first_name: String!
+		last_name: String!
+		avatar: String!
 	}
 
+
 	input UserInput {
-		firstName: string!
-		lastName: string!
+		first_name: String!
+		last_name: String!
+		avatar: String!
 	}
 	
 	schema {
@@ -18,14 +21,18 @@ var Schema = `
 		mutation: Mutation
 	}
 
+	type Empty {}
+
 	type Mutation {
-		createUser(user: !): Person
-		updateUser(crewNo: ID!, person: PersonInput!): Person
-		deleteUser(crewNo: ID!): Person
-	}
+		createUser(user: UserInput!) : Empty!
+		updateUser(user: UserInput!): Empty!
+		deleteUser(userId: ID!) : Empty!
+	} 
 
 	type Query {
-		User(): [User]
-		Person(id: ID!): Person
+#		Users(): [User]!
+#		User(): UserInput!
+		User(id: ID!): User!
+#		User(): User
 	}
 `
